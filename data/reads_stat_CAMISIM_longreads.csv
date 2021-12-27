@@ -1,0 +1,12 @@
+file                                                                                                  format  type   num_seqs         sum_len  min_len  avg_len  max_len
+/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/CAMISIM/testSIM/PacBio20g/00reads/sample2.fastq  FASTQ   DNA   2,000,162  20,000,002,722      319  9,999.2   15,460
+file                                                                                                  format  type   num_seqs         sum_len  min_len  avg_len  max_len
+/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/CAMISIM/testSIM/PacBio20g/00reads/sample0.fastq  FASTQ   DNA   2,000,207  20,000,007,364      100    9,999   15,460
+file                                                                                                  format  type   num_seqs         sum_len  min_len  avg_len  max_len
+/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/CAMISIM/testSIM/PacBio20g/00reads/sample1.fastq  FASTQ   DNA   2,000,213  19,999,995,639      100  9,998.9   15,460
+file                                                                                                    format  type   num_seqs         sum_len  min_len  avg_len  max_len
+/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/CAMISIM/testSIM/Nanopore30g/00reads/sample0.fastq  FASTQ   DNA   3,859,626  29,999,996,810       39  7,772.8   67,268
+file                                                                                                    format  type   num_seqs         sum_len  min_len  avg_len  max_len
+/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/CAMISIM/testSIM/Nanopore30g/00reads/sample2.fastq  FASTQ   DNA   3,859,798  29,999,998,025       39  7,772.4   66,498
+file                                                                                                    format  type   num_seqs         sum_len  min_len  avg_len  max_len
+/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/CAMISIM/testSIM/Nanopore30g/00reads/sample1.fastq  FASTQ   DNA   3,858,689  30,000,001,224       49  7,774.7   66,710

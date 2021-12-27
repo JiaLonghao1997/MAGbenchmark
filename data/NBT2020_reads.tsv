@@ -1,0 +1,6 @@
+P1_mNGS	100	/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/data/PRJNA508395/00G2trim/P1_trim1.paired.fq.gz,/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/data/PRJNA508395/00G2trim/P1_trim2.paired.fq.gz
+P2A_mNGS	100	/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/data/PRJNA508395/00G2trim/P2A_trim1.paired.fq.gz,/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/data/PRJNA508395/00G2trim/P2A_trim2.paired.fq.gz
+P2B_mNGS	100	/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/data/PRJNA508395/00G2trim/P2B_trim1.paired.fq.gz,/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/data/PRJNA508395/00G2trim/P2B_trim2.paired.fq.gz
+P1_Nanopore	2838	/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/data/PRJNA508395/00G3/P1.fastq.gz
+P2A_Nanopore	1800	/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/data/PRJNA508395/00G3/P2A.fastq.gz
+P2B_Nanopore	1683	/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/data/PRJNA508395/00G3/P2B.fastq.gz

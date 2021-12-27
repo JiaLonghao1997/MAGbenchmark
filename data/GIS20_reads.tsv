@@ -1,0 +1,3 @@
+S1_Nanopore	/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/GIS20/TGS/ONT/ERR3200811.sra.fastq.gz
+S1_PacBio	/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/GIS20/TGS/Pacbio/ERR4465770.sra.fastq.gz
+S1_mNGS	/home1/YQ_Dong/datasets/Benchmark/GIS20/NGS/ERR3200809_1_trim_paired.fastq.gz,/home1/YQ_Dong/datasets/Benchmark/GIS20/NGS/ERR3200809_2_trim_paired.fastq.gz

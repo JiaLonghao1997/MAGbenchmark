@@ -1,0 +1,7 @@
+assembly: /home3/ZXMGroup/VIROME/G3compare/data/PRJNA380276/results/contigs/P1_nanopore_metaflye.contigs.fa
+sample: P1_nanopore_metaflye
+reads1: /home3/ZXMGroup/VIROME/G3compare/data/PRJNA508395/00_rawdata/SRR8427258/SRR8427258_1.fastq.gz
+#reads2: reads_2.fq.gz #omit for single-ended or long reads
+krakendb:  /share/inspurStorage/home1/jialh/human_virome/tools/kraken2-2.1.1/minikraken_8GB_20200312
+read_length: 2838 #mean read length
+long_read: True

@@ -1,0 +1,12 @@
+sample0_mNGS	150	/share/inspurStorage/home1/YQ_Dong/datasets/Benchmark/CAMISIM/data/mNGS/2021.05.11_22.45.43_sample0/anonymous_R1.fq.gz,/share/inspurStorage/home1/YQ_Dong/datasets/Benchmark/CAMISIM/data/mNGS/2021.05.11_22.45.43_sample0/anonymous_R2.fq.gz
+sample1_mNGS	150	/share/inspurStorage/home1/YQ_Dong/datasets/Benchmark/CAMISIM/data/mNGS/2021.05.11_22.45.43_sample1/anonymous_R1.fq.gz,/share/inspurStorage/home1/YQ_Dong/datasets/Benchmark/CAMISIM/data/mNGS/2021.05.11_22.45.43_sample1/anonymous_R2.fq.gz
+sample2_mNGS	150	/share/inspurStorage/home1/YQ_Dong/datasets/Benchmark/CAMISIM/data/mNGS/2021.05.11_22.45.43_sample2/anonymous_R1.fq.gz,/share/inspurStorage/home1/YQ_Dong/datasets/Benchmark/CAMISIM/data/mNGS/2021.05.11_22.45.43_sample2/anonymous_R2.fq.gz
+sample0_PacBio	10000	/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/CAMISIM/testSIM/PacBio20g/00reads/sample0.fastq
+sample1_PacBio	10000	/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/CAMISIM/testSIM/PacBio20g/00reads/sample1.fastq
+sample2_PacBio	10000	/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/CAMISIM/testSIM/PacBio20g/00reads/sample2.fastq
+sample0_Nanopore	7774	/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/CAMISIM/testSIM/Nanopore30g/00reads/sample0.fastq
+sample1_Nanopore	7774	/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/CAMISIM/testSIM/Nanopore30g/00reads/sample1.fastq
+sample2_Nanopore	7774	/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/CAMISIM/testSIM/Nanopore30g/00reads/sample2.fastq
+sample0_HiC	150	/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/CAMISIM/testSIM/2021gut_HiC/Sau3AI/64000000/sample0.fastq
+sample1_HiC	150	/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/CAMISIM/testSIM/2021gut_HiC/Sau3AI/64000000/sample1.fastq
+sample2_HiC	150	/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/CAMISIM/testSIM/2021gut_HiC/Sau3AI/64000000/sample2.fastq

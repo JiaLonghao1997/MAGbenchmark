@@ -1,0 +1,4 @@
+Building DAG of jobs...
+MissingInputException in line 43 of /home3/ZXMGroup/VIROME/G3compare/data/PRJNA380276/results/metagenomics_workflows/assembly_comparison_circos/Snakefile:
+Missing input files for rule stage_assemblies:
+/home3/ZXMGroup/VIROME/G3compare/data/PRJNA508395/lathe/P1/5.final/P1_final.fa

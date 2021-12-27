@@ -1,0 +1,1 @@
+bwa mem bwa_idx/ref.fa /home1/jialh/human_virome/tools/baits_reference.fasta -a > highlighted/highlights.sam;samtools view highlighted/highlights.sam -F4 | cut -f1,3,4 | 		sort -u -k1,1 | awk '{print $2, $3, $3 + 1000, $1}' > highlighted/highlights.bed
