@@ -1,3 +1,12 @@
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
 # Genome-resolved metagenomics using short-, long-read and metaHiC sequencing
 
 In this work, we systematically evaluated **26** distinct strategies for recovering high-quality MAGs generated from **eight** assemblers, **two** binning strategies, and **four** sequencing technologies including both short- and long-read methods. In particular, we evaluated metagenomic high-throughput chromosomal conformation capture (metaHiC), a new technique that improves binning of assembled contigs using physically linked read-pairs within cells. To our knowledge, we are the first to evaluate the combination of long-read and metaHiC on metagenomics data.
