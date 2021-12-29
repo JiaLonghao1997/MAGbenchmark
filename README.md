@@ -40,7 +40,7 @@ Two long-read assembled contigs were then merged by [**quickmerge**](https://git
 
 ##### 3.1 Binning
 
-- [**MetaBAT2**](https://bitbucket.org/berkeleylab/metabat/src/master/) v**.**2.15 (--minContig 2500 --minContigDepth 1 --percentIdentity 97) 
+- [**MetaBAT2**](https://bitbucket.org/berkeleylab/metabat/src/master/) v.2.15 (--minContig 2500 --minContigDepth 1 --percentIdentity 97) 
 - [**bin3C**](https://github.com/cerebis/bin3C) v.0.1.1
 
 ##### 3.2 Generation and quality evaluation of MAGs
