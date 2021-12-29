@@ -11,6 +11,8 @@
   });
 </script>
  </head>
+ </html>
+ 
 # Genome-resolved metagenomics using short-, long-read and metaHiC sequencing
 
 In this work, we systematically evaluated **26** distinct strategies for recovering high-quality MAGs generated from **eight** assemblers, **two** binning strategies, and **four** sequencing technologies including both short- and long-read methods. In particular, we evaluated metagenomic high-throughput chromosomal conformation capture (metaHiC), a new technique that improves binning of assembled contigs using physically linked read-pairs within cells. To our knowledge, we are the first to evaluate the combination of long-read and metaHiC on metagenomics data.
@@ -76,7 +78,7 @@ The close reference genome of MAG was determined by  [**GTDB-tk**](https://githu
 Then we calculated an observed-versus-expected ratio of the annotated tRNA and rRNA genes for each MAG as:
 $$
 r=\begin{cases} 1 \quad    if\ R_e\ is\ 0  \\
-\frac{R_o}{R_e} \quad if\ R_e\ is\ not\ 0.
+\frac{R_o}{R_e} \quad if\ R_e\ is\ not\ 0. \end{case}
 $$
 `R_e` is the expected tRNA or rRNA count of the reference genome,  `R_o` is the observed tRNA or rRNA count of the MAG,  `r` is the observed-versus-expected ratio. 
 
