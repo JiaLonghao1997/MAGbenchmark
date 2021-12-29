@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-<script type="text/x-mathjax-config">
+  <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
       processEscapes: true
     }
   });
-</script>
+  </script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
  </head>
  </html>
  
@@ -77,7 +77,7 @@ The close reference genome of MAG was determined by  [**GTDB-tk**](https://githu
 
 Then we calculated an observed-versus-expected ratio of the annotated tRNA and rRNA genes for each MAG as:
 $$
-r=\begin{cases} 1 \quad    if\ R_e\ is\ 0  \\
+r=\begin{cases} 1 \quad    if\ R_e\ is\ 0  \\\\
 \frac{R_o}{R_e} \quad if\ R_e\ is\ not\ 0. \end{cases}
 $$
 `R_e` is the expected tRNA or rRNA count of the reference genome,  `R_o` is the observed tRNA or rRNA count of the MAG,  `r` is the observed-versus-expected ratio. 
