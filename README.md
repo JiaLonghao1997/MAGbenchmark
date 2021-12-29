@@ -2,7 +2,7 @@
 
 In this work, we systematically evaluated **26** distinct strategies for recovering high-quality MAGs generated from **eight** assemblers, **two** binning strategies, and **four** sequencing technologies including both short- and long-read methods. In particular, we evaluated metagenomic high-throughput chromosomal conformation capture (metaHiC), a new technique that improves binning of assembled contigs using physically linked read-pairs within cells. To our knowledge, we are the first to evaluate the combination of long-read and metaHiC on metagenomics data.
 
-<img src="https://jialh.oss-cn-shanghai.aliyuncs.com/img/Figure 1_1.png">
+<img src="https://github.com/JiaLonghao1997/MAGbenchmark/blob/main/Figure%201_1.png">
 
 #### 1. Preprocess
 
