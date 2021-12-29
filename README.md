@@ -60,8 +60,8 @@ The close reference genome of MAG was determined by  [**GTDB-tk**](https://githu
 
  tRNA and rRNA genes of MAGs and reference genomes were identified as previously mentioned. 
 
-Then we calculated an observed-versus-expected ratio of the annotated tRNA and rRNA genes for each MAG as:
-<img src="https://github.com/JiaLonghao1997/MAGbenchmark/blob/main/math1.png" />
+Then we calculated an observed-versus-expected ratio of the annotated tRNA and rRNA genes for each MAG as: 
+<img src="https://github.com/JiaLonghao1997/MAGbenchmark/blob/main/math1.png" /> <br>
 R_e is the expected tRNA or rRNA count of the reference genome,  R_o is the observed tRNA or rRNA count of the MAG,  r is the observed-versus-expected ratio. 
 
 #### 5. extrachromosomal mobile genetic elements (eMGEs)
