@@ -73,6 +73,7 @@ Then we calculated an observed-versus-expected ratio of the annotated tRNA and r
 $$
 r = \begin{cases} 
 1 \quad    if\ R_e\ is\ 0  \\
+
 \frac{R_o}{R_e} \quad if\ R_e\ is\ not\ 0.
 \end{cases}
 $$
