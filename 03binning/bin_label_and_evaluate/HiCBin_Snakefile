@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
-localrules: bwa_index_setup, postprocess_raw, postprocess_final, label_bins, bin_tig_mapping, contact_map, bin3c_clust, clust2bin, fasta_index
+localrules: bwa_index_setup, postprocess_raw, postprocess_final, label_bins, bin_tig_mapping, HiC_taxon, HiC_coverage, HiCBin, clust2bin, fasta_index
 
 samp = config['sample']
+#taxdb = "/share/inspurStorage/home1/jialh/ref_data/mmseqs2-GTDB/GTDB"
 if 'reads2' in config and not config['reads2'] == '':
 	reads = [config['reads1'], config['reads2']]
 else:
@@ -26,7 +27,7 @@ rule all:
 		HiC_reads,
 		config['assembly'],
 		config['krakendb'],
-		expand("{foo}/final/{foo}.tsv", foo = config['sample'])
+		expand("{samp}/final/{samp}.tsv", samp = config['sample'])
 
 rule bwa_index_setup:
 	input:
@@ -40,7 +41,7 @@ rule bwa_index_setup:
 	params:
 		asm = config['assembly']
 	shell:
-		"cp {params.asm} {samp}/idx/{samp}.fa"
+		"/usr/bin/ln -s {input} {samp}/idx/{samp}.fa"
 
 rule bwa_index:
 	input:
@@ -61,19 +62,17 @@ rule bwa_index:
 
 rule bwa_align:
 	input:
-		config['jgi_summarize_bam'],
-		config['cov_depth']
+		config['bamfile']
 	log:
 		"{samp}/logs/bwa_mem.log"
 	output:
-		"{samp}/{samp}.bam",
-		"{samp}/{samp}.fa.depth.txt"
+		"{samp}/{samp}.bam"
 	resources:
 		mem=16,
 		time=12
-	threads: 24
+	threads: 32
 	shell:
-		"mv input[0] {samp}/{samp}.bam; mv input[1] {samp}/{samp}.fa.depth.txt"
+		"/usr/bin/ln -s {input} {output}"
 
 rule align_lr:
 	input:
@@ -86,46 +85,104 @@ rule align_lr:
 	resources:
 		mem=48,
 		time=6
-	threads: 16
+	threads: 32
 	shell:
 		"/home1/jialh/tools/miniconda3/bin/minimap2 -t {threads} -ax map-ont {input} | /home1/jialh/tools/samtools-1.9/samtools sort -@ {threads} -o {output}"
 
 rule map_HiC_reads_to_contigs:
-    input:
-        rules.bwa_index_setup.output,
-        HiC_reads,
-        rules.bwa_index.output
-    output:
-        "{samp}/HiCBin/hic2ctg.bam"
-    shell:
-        "/home1/jialh/tools/miniconda3/bin/bwa mem -t 16 -5SP {input[0]} {input[1]} | " +
-        "/home1/jialh/tools/samtools-1.9/samtools view -@ 16 -F 0x904 -bS - | " +
-        "/home1/jialh/tools/samtools-1.9/samtools sort -@ 16 -o {output} - "
+	input:
+		config['hic2contig']
+	output:
+		"{samp}/HiCBin/hic2ctg.bam"
+	shell:
+		"/usr/bin/ln -s {input} {output}"
 
-rule contact_map:
-    input:
-        rules.bwa_index_setup.output,
-        rules.map_HiC_reads_to_contigs.output
-    output:
-        directory("{samp}/bin3C/bin3c_out")
-    shell:
-        "/home1/jialh/tools/miniconda3/envs/bin3C/bin/python2 /home1/jialh/tools/miniconda3/envs/bin3C/bin/bin3C.py mkmap -e {enzyme}  -v {input[0]} {input[1]} {output}"
+rule HiC_taxon:
+	input:
+		"{samp}/idx/{samp}.fa",
+		"/share/inspurStorage/home1/jialh/ref_data/mmseqs2-GTDB/GTDB"
+	output:
+		directory("{samp}/HiCBin_taxon"),
+		"{samp}/HiCBin_taxon/taxPerContig.rank.csv",
+		"{samp}/HiCBin_taxon/taxon/taxPerContig.dbtype",
+		"{samp}/HiCBin_taxon/taxon/taxPerContig.index"
+	shell:
+		"sh /home3/ZXMGroup/VIROME/G3compare/pipeline/HiCBin/scripts/01mmseqs.sh  {input[0]} {input[1]} {output[0]} {output[1]} {samp}"
 
-rule bin3c_clust:
-    input:
-        "{samp}/bin3C/bin3c_out"
-    output:
-        directory("{samp}/bin3C/bin3c_clust")
-    shell:
-        "/home1/jialh/tools/miniconda3/envs/bin3C/bin/python2 /home1/jialh/tools/miniconda3/envs/bin3C/bin/bin3C.py cluster --min-extent 200000 -v {input}/contact_map.p.gz {output}"
+rule HiC_coverage:
+	input:
+		"{samp}/{samp}.bam"
+	output:
+		"{samp}/HiCBin_coverage/{samp}.coverage.txt",
+		"{samp}/HiCBin_coverage/{samp}.pair.txt"
+	shell:
+		"echo /share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/pipeline/HiCBin/jgi_summarize_bam_contig_depths " +
+		"--outputDepth {output[0]} --pairedContigs {output[1]} {input};" +
+		"/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/pipeline/HiCBin/jgi_summarize_bam_contig_depths " +
+		"--outputDepth {output[0]} --pairedContigs {output[1]} {input}"
+
+
+rule HiCBin:
+	input:
+		config['assembly'],
+		config['hic2contig'],
+		"{samp}/HiCBin_taxon/taxPerContig.rank.csv",
+		"{samp}/HiCBin_coverage/{samp}.coverage.txt"
+	output:
+		directory("{samp}/HiCBin"),
+		directory("{samp}/HiCBin/BIN"),
+		"{samp}/HiCBin/cluster.txt"
+	shell:
+		"/home1/jialh/tools/miniconda3/envs/HiCBin/bin/python /home3/ZXMGroup/VIROME/G3compare/pipeline/HiCBin/hicbin.py " +
+		"pipeline -e {enzyme} -v --cover {input[0]} {input[1]} {input[2]} {input[3]} {output[0]}"
+
+rule HiCBin_checkm:
+	input:
+		expand("{samp}/HiCBin/BIN", samp=samp),
+		expand("{samp}/HiCBin/cluster.txt", samp=samp)
+	output:
+		expand("{samp}/HiCBin/checkm/checkm.tsv", samp=samp)
+	log:
+		expand("{samp}/logs/HiCBin_checkm.log", samp=samp)
+	resources:
+		mem=128,
+		time=24
+	threads: 16
+	shell:
+		"rm -rf {samp}/checkm/*; checkm lineage_wf -t {threads}" +" -x fa --tab_table -f {samp}/HiCBin/checkm/checkm.tsv {samp}/HiCBin/BIN/ {samp}/HiCBin/checkm"
+
+rule HiCBin_recluster:
+	input:
+		expand("{samp}/HiCBin/checkm/checkm.tsv", samp=samp),
+		expand("{samp}/idx/{samp}.fa", samp=samp),
+		expand("{samp}/HiCBin/BIN",samp=samp)
+	output:
+		"{samp}/HiCBin/cont_bins.tsv",
+		"{samp}/HiCBin/cluster_sub.txt",
+		directory("{samp}/HiCBin/SUB_BIN")
+	shell:
+		"sh /home3/ZXMGroup/VIROME/G3compare/pipeline/HiCBin/01checkm_cont_bins.sh  {samp}/HiCBin/checkm/checkm.tsv {samp}/HiCBin/cont_bins.tsv; " +
+		"rm -rf {samp}/HiCBin/SUB_BIN; /home1/jialh/tools/miniconda3/envs/HiCBin/bin/python /home3/ZXMGroup/VIROME/G3compare/pipeline/HiCBin/hicbin.py " +
+		"recluster --cover -v {samp}/idx/{samp}.fa {samp}/HiCBin/cont_bins.tsv {samp}/HiCBin"
+
+rule HiCBin_merge_bins:
+	input:
+		"{samp}/HiCBin/cont_bins.tsv",
+		"{samp}/HiCBin/SUB_BIN",
+		"{samp}/HiCBin/BIN"
+	output:
+		directory("{samp}/HiCBin/FINAL_BIN")
+	shell:
+		"/home1/jialh/tools/miniconda3/envs/HiCBin/bin/python /home3/ZXMGroup/VIROME/G3compare/pipeline/HiCBin/merge_bins.py " +
+		"{samp}/HiCBin/cont_bins.tsv {samp}/HiCBin"
 
 checkpoint clust2bin:
-    input:
-        directory("{samp}/bin3C/bin3c_clust")
-    output:
-        directory("{samp}/bins") #the number of bins is unknown prior to execution"
-    shell:
-        "/share/inspurStorage/home3/ZXMGroup/VIROME/G3compare/pipeline/bin_label_and_evaluate/scripts/bin3C_basecount.py {input}/fasta {output}"
+	input:
+		"{samp}/HiCBin/FINAL_BIN"
+	output:
+		directory("{samp}/bins") #the number of bins is unknown prior to execution"
+	shell:
+		"cp -r {samp}/HiCBin/FINAL_BIN {samp}/bins"
 
 rule checkm:
 	input:
@@ -178,7 +235,7 @@ rule quast:
 		mem=8,
 		time=1
 	shell:
-	    "/share/inspurStorage/home1/jialh/tools/miniconda3/bin/quast.py -o {samp}/quast/{wildcards.bin}.fa/ {input} " + "--contig-thresholds 0,10000,50000,100000,250000,500000,1000000,2000000,3000000 --fast "
+		"/share/inspurStorage/home1/jialh/tools/miniconda3/envs/quast/bin/quast.py -o {samp}/quast/{wildcards.bin}.fa/ {input} " + "--contig-thresholds 0,10000,50000,100000,500000,1000000 --fast "
 
 rule prokka:
 	input:
@@ -234,7 +291,7 @@ rule bin_idxstats:
 		mem=2,
 		time=1
 	shell:
-	    "grep '>' {input[0]} | tr -d '>' | cut  -d ' ' -f 2 | cut  -d ':' -f 2 | xargs -I foo -n 1 grep -P 'foo\\t' {input[1]} > {output}"
+		"grep '>' {input[0]} | tr -d '>' | cut  -d ' ' -f 2 | cut  -d ':' -f 2 | xargs -I foo -n 1 grep -P 'foo\\t' {input[1]} > {output}"
 
 rule bin_coverage:
 	input:
@@ -318,8 +375,8 @@ rule postprocess_raw:
 			"cat {samp}/coverage/*.txt) > {samp}/final/coverage.tmp; " +
 		"(echo 'Sample Bin Genes' | tr ' ' '\t'; \
 			find {samp}/prokka/ -name '*.gff' | xargs grep -c CDS | cut -f4 -d '/' | sed 's/.fa.gff:/\t/g' | sed 's/{samp}_/{samp}\t/g' | sort -k2,2g) > {samp}/final/prokka.tmp; " + \
-		"find {samp}/quast/ -name 'transposed_report.tsv' | xargs cat | sort -u | sed 's/^\(b..\)/{samp}\t\\1/g' | sed 's/^Assembly/Sample\tBin/g' > {samp}/final/quast.tmp; " + \
-		"cat {samp}/checkm/checkm.tsv " + " | sed 's/^\(b..\)/{samp}\t\\1/g' | sed 's/^Bin Id/Sample\tBin/g' > {samp}/final/checkm.tmp; " + \
+		"find {samp}/quast/ -name 'transposed_report.tsv' | xargs cat | sort -u | sed 's/^\(BIN\)/{samp}\t\\1/g' | sed 's/^Assembly/Sample\tBin/g' > {samp}/final/quast.tmp; " + \
+		"cat {samp}/checkm/checkm.tsv " + " | sed 's/^\(BIN\)/{samp}\t\\1/g' | sed 's/^Bin Id/Sample\tBin/g' > {samp}/final/checkm.tmp; " + \
 		"(echo 'Sample Bin tRNA' | tr ' ' '\\t'; \
 			ls {samp}/rna/trna/ | xargs -n 1 -I foo sh -c \"grep 'Number of' {samp}/rna/trna/foo | cut -f2 -d= | tr -d ' ' | tr '\\n' '+' | sed 's/+$//g' | xargs echo | bc | sed 's/^/foo\\t/g' \" | sed 's/^/{samp}\\t/g' | sed 's/.fa.txt//g') > {samp}/final/trna.tmp; " +
 		"(echo 'Sample Bin rna.16S rna.23S rna.5S' | tr ' ' '\t'; \

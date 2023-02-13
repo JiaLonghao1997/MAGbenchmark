@@ -1,8 +1,12 @@
-# Genome-resolved metagenomics using short-, long-read and metaHiC sequencing
+# Critical assessment of genome-resolved gut metagenomics on short-, long-read and metaHiC sequencing data
 
-In this work, we systematically evaluated **26** distinct strategies for recovering high-quality MAGs generated from **eight** assemblers, **two** binning strategies, and **four** sequencing technologies including both short- and long-read methods. In particular, we evaluated metagenomic high-throughput chromosomal conformation capture (metaHiC), a new technique that improves binning of assembled contigs using physically linked read-pairs within cells. To our knowledge, we are the first to evaluate the combination of long-read and metaHiC on metagenomics data.
+Recovering high-quality metagenome-assembled genomes (HQ-MAGs) is critical for exploring microbial compositions and microbe-phenotype associations. However, multiple sequencing platforms and computational tools for this purpose may confuse researchers and thus call for extensive evaluation. 
 
-<img src="https://github.com/JiaLonghao1997/MAGbenchmark/blob/main/Figure%201_1.png">
+We systematically evaluated a total of **40** combinations of popular computational tools and sequencing platforms (i.e., strategies), involving **eight assemblers, eight metagenomic binners, and four sequencing technologies**, including short-, long-read and metaHiC sequencing. We identified the best tools for the individual tasks (e.g., the assembly and binning) and combinations (e.g., for generating more HQ-MAGs) depending on the availability of the sequencing data. 
+
+Depending on the data availability, we found that the combination of the hybrid assemblies and metaHiC-based binning performed best, followed by the hybrid and long-read assemblies. More importantly, both long-read and metaHiC sequencings link more mobile elements and antibiotic resistance genes to bacterial hosts and improve the quality of public human gut reference genomes with 32% (34/105) HQ-MAGs that were either of better quality than those in the UHGG2 or novel.
+
+![Figure 1](https://jialh.oss-cn-shanghai.aliyuncs.com/img2/Figure 1.jpg)
 
 #### 1. Preprocess
 
@@ -38,12 +42,21 @@ Two long-read assembled contigs were then merged by [**quickmerge**](https://git
 
 #### 3. Binning
 
-##### 3.1 Binning
+##### 3.1 Similarity-based binners
 
 - [**MetaBAT2**](https://bitbucket.org/berkeleylab/metabat/src/master/) v.2.15 (--minContig 2500 --minContigDepth 1 --percentIdentity 97) 
-- [**bin3C**](https://github.com/cerebis/bin3C) v.0.1.1
+- [**metaWRAP**](https://github.com/bxlab/metaWRAP) v.1.3.2
+- [**DAS_Tool**](https://github.com/cmks/DAS_Tool) v. 1.1.4
+- [**VAMB**](https://github.com/RasmussenLab/vamb) v. 3.0.2
+- [**SemiBin**](https://github.com/BigDataBiology/SemiBin/ ) v.1.0.0
 
-##### 3.2 Generation and quality evaluation of MAGs
+##### 3.2 MetaHiC-based binners
+
+-   [**bin3C**](https://github.com/cerebis/bin3C) v.0.1.1
+-   [**MetaTOR**](https://github.com/koszullab/metaTOR) v. 1.1.4
+-   [**HiCBin**](https://github.com/dyxstat/HiCBin) v.1.0.0
+
+##### 3.3 Generation and quality evaluation of MAGs
 
 **[bin_label_and_evaluate](https://github.com/elimoss/metagenomics_workflows)** is a public available Snakemake workflow for aligning, binning, classifying and evaluating a metagenomic assembly. We  modified some of the scripts to make it suitable for bin3C binning.
 
@@ -52,17 +65,13 @@ Two long-read assembled contigs were then merged by [**quickmerge**](https://git
 - Gene Content: **[Prokka](https://github.com/tseemann/prokka)** v.1.14.6
 - tRNA sequences:  [**Aragorn**](http://www.ansikte.se/ARAGORN/) v.1.2.38
 - Ribosomal RNA loci:  [**Barrnap**](https://github.com/tseemann/barrnap) v.0.9
-- Taxonomic classification: [**Kraken2**](https://ccb.jhu.edu/software/kraken2/) v.2.1.1 and [**GTDB-tk**](https://github.com/Ecogenomics/GTDBTk) v1.4.1.
+- Taxonomic classification: [**GTDB-tk**](https://github.com/Ecogenomics/GTDBTk) v1.4.1.
 
 #### 4. tRNA and rRNA
 
 The close reference genome of MAG was determined by  [**GTDB-tk**](https://github.com/Ecogenomics/GTDBTk) v.1.4.1. 
 
  tRNA and rRNA genes of MAGs and reference genomes were identified as previously mentioned. 
-
-Then we calculated an observed-versus-expected ratio of the annotated tRNA and rRNA genes for each MAG as: 
-<img src="https://github.com/JiaLonghao1997/MAGbenchmark/blob/main/math1.png" /> <br>
-R_e is the expected tRNA or rRNA count of the reference genome,  R_o is the observed tRNA or rRNA count of the MAG,  r is the observed-versus-expected ratio. 
 
 #### 5. extrachromosomal mobile genetic elements (eMGEs)
 
