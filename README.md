@@ -6,7 +6,7 @@ We systematically evaluated a total of **40** combinations of popular computatio
 
 Depending on the data availability, we found that the combination of the hybrid assemblies and metaHiC-based binning performed best, followed by the hybrid and long-read assemblies. More importantly, both long-read and metaHiC sequencings link more mobile elements and antibiotic resistance genes to bacterial hosts and improve the quality of public human gut reference genomes with 32% (34/105) HQ-MAGs that were either of better quality than those in the UHGG2 or novel.
 
-![Figure 1](https://jialh.oss-cn-shanghai.aliyuncs.com/img2/Figure 1.jpg)
+![Figure 1](https://github.com/JiaLonghao1997/MAGbenchmark/blob/main/Figure%201.jpg)
 
 #### 1. Preprocess
 
